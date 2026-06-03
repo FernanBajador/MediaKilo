@@ -68,6 +68,63 @@
             border-color: rgba(177, 102, 204, 0.15);
         }
 
+        /* --- UNIVERSAL MOBILE FIX (Laptop & Phone) --- */
+        @media (max-width: 768px) {
+            /* 1. Reduce the massive padding from Laptop size to Phone size */
+            section {
+                padding-top: 5rem !important;
+                padding-bottom: 5rem !important;
+            }
+
+            /* 2. Force all 2-column grids to become 1-column so they don't overlap */
+            .grid-cols-2, .md\:grid-cols-2 {
+                grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+                gap: 2.5rem !important;
+            }
+
+            /* 3. Scale down the huge titles so they fit on one screen */
+            h1 { font-size: 2.5rem !important; line-height: 1.2 !important; }
+            h2 { font-size: 2rem !important; }
+            h3 { font-size: 1.5rem !important; }
+
+            /* 4. Fix the Nav Bar: allow it to scroll sideways so tabs don't disappear */
+            #main-nav {
+                overflow-x: auto !important;
+                -webkit-overflow-scrolling: touch;
+            }
+            #main-nav .max-w-7xl {
+                min-width: 600px; /* Ensures tabs stay in a line on small phones */
+            }
+
+            /* 5. Scale down the large images (Profile & Workspace) */
+            .w-72, .md\:w-\[450px\], .md\:w-\[480px\] {
+                width: 250px !important;
+                height: 250px !important;
+            }
+            
+            .profile-frame {
+                max-width: 100% !important;
+            }
+
+            /* 6. Adjust the Welcome Button for fingers */
+            #welcome-pill {
+                padding: 1.5rem 3rem !important;
+                font-size: 1.2rem !important;
+                letter-spacing: 0.3em !important;
+            }
+
+            /* 7. Ensure Pricing selection stays inside the screen */
+            #pricing .grid-cols-2 {
+                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+                gap: 0.5rem !important;
+            }
+            .price-option {
+                padding: 0.75rem !important;
+                font-size: 10px !important;
+            }
+        }
+
+
         .nav-link {
             position: relative; padding: 10px 20px; border-radius: 100px;
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
