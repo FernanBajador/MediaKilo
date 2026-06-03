@@ -20,12 +20,21 @@
             --bg-outer: #05000a;
         }
 
-        /* --- CONTENT REVEAL ANIMATION (SLEEK SLIDE & BLUR) --- */
+        /* --- NEW: ENHANCED PROFILE GLOW --- */
+        .purple-glow-circle { 
+            border: 4px solid var(--neon-purple); 
+            /* Multi-layered glow for maximum "Cyber" effect */
+            box-shadow: 0 0 30px rgba(177, 102, 204, 0.8), 
+                        0 0 60px rgba(177, 102, 204, 0.4), 
+                        inset 0 0 20px rgba(177, 102, 204, 0.4); 
+        }
+
+        /* --- CONTENT REVEAL ANIMATION (REPEATING) --- */
         .content-reveal {
             opacity: 0;
             filter: blur(15px);
             transform: translateY(50px);
-            transition: all 1.0s cubic-bezier(0.2, 1, 0.3, 1);
+            transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1);
         }
         .content-reveal.revealed {
             opacity: 1;
@@ -33,18 +42,25 @@
             transform: translateY(0);
         }
 
-        /* --- CONTAINER HIGHLIGHT GLOW --- */
+        /* --- PREMIUM HIGHLIGHT EFFECT --- */
         .premium-highlight {
-            border: 2px solid rgba(177, 102, 204, 0.4) !important;
-            box-shadow: 0 0 30px rgba(177, 102, 204, 0.3), inset 0 0 15px rgba(177, 102, 204, 0.1);
-            transition: all 0.5s ease;
+            border: 1px solid rgba(177, 102, 204, 0.4) !important;
+            box-shadow: 0 0 25px rgba(177, 102, 204, 0.2), inset 0 0 10px rgba(177, 102, 204, 0.1);
+            transition: box-shadow 0.5s ease, border-color 0.5s ease, transform 0.5s ease;
         }
         .premium-highlight:hover {
-            box-shadow: 0 0 50px rgba(177, 102, 204, 0.6);
+            box-shadow: 0 0 40px rgba(177, 102, 204, 0.5);
             border-color: var(--neon-purple) !important;
         }
 
-        /* --- LIQUID GLASS UI --- */
+        /* Subtle Noise/Grain */
+        .bg-grain {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -2; opacity: 0.04; pointer-events: none;
+            background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
+        }
+
+        /* --- LIQUID GLASS NAV BAR & FOOTER --- */
         #main-nav, #contact-footer {
             background: rgba(10, 10, 10, 0.3) !important;
             backdrop-filter: blur(25px) saturate(180%);
@@ -56,24 +72,26 @@
             position: relative; padding: 10px 20px; border-radius: 100px;
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
         .nav-link:hover {
             background: rgba(177, 102, 204, 0.12);
             backdrop-filter: blur(10px);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37), inset 0 0 10px rgba(255, 255, 255, 0.1);
             color: white !important; transform: translateY(-2px);
         }
 
         /* --- BREATHING GLOW --- */
-        .neon-purple-text, .text-purple-500, h1 span.neon-purple-text, .price-total-glow {
+        .neon-purple-text, .text-purple-500, span.text-purple-500, h1 span.neon-purple-text, h2 span, .price-option, .price-total-glow {
             animation: text-glow-pulse 3s infinite alternate;
         }
+
         @keyframes text-glow-pulse {
             0% { text-shadow: 0 0 8px rgba(177, 102, 204, 0.3); }
-            100% { text-shadow: 0 0 25px rgba(177, 102, 204, 0.9); }
+            100% { text-shadow: 0 0 20px rgba(177, 102, 204, 0.9), 0 0 35px rgba(125, 62, 194, 0.5); }
         }
 
         h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; -webkit-text-stroke: 1px rgba(177, 102, 204, 0.1); }
-        p, span, a { font-family: 'Inter', sans-serif; }
+        p, span, a { font-family: 'Inter', sans-serif; text-shadow: 0px 0px 1px rgba(255,255,255,0.1); }
 
         body { 
             background: radial-gradient(circle at center, var(--bg-center) 0%, var(--bg-mid) 60%, var(--bg-outer) 100%);
@@ -89,18 +107,19 @@
             font-family: 'Montserrat', sans-serif; font-weight: 900; letter-spacing: 0.5em; 
             text-transform: uppercase; background: linear-gradient(135deg, var(--neon-purple) 0%, var(--electric-purple) 100%);
             border: 2px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 0 30px rgba(157, 80, 187, 0.6);
+            box-shadow: 0 0 30px rgba(157, 80, 187, 0.6), inset 0 0 15px rgba(255, 255, 255, 0.2);
             transition: all 1.2s cubic-bezier(0.7, 0, 0.3, 1);
             position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 100; white-space: nowrap;
         }
 
         .hero-content-part { opacity: 0; transform: translateY(20px); transition: opacity 1s ease, transform 1s ease; }
         .reveal-active { opacity: 1 !important; transform: translateY(0) !important; }
-        .profile-frame { aspect-ratio: 3 / 4; border: 4px solid var(--neon-purple); }
+        .profile-frame { aspect-ratio: 3 / 4; border: 2px solid var(--neon-purple); box-shadow: 0 0 40px rgba(157, 80, 187, 0.3); }
         .glass-card { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(15px); border: 1px solid rgba(177, 102, 204, 0.2); transition: all 0.3s ease; }
         .gradient-btn { background: linear-gradient(135deg, var(--neon-purple) 0%, var(--electric-purple) 100%); transition: all 0.3s ease; }
         .purple-underline { border-bottom: 3px solid var(--neon-purple); padding-bottom: 8px; width: fit-content; }
-        .nav-active { color: white !important; background: rgba(177, 102, 204, 0.2) !important; }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .nav-active { color: white !important; background: rgba(177, 102, 204, 0.2) !important; box-shadow: 0 0 20px rgba(177, 102, 204, 0.2); }
         .click-press { transform: scale(0.92) !important; transition: transform 0.15s ease-out !important; }
         .skill-card * { pointer-events: none; }
         #skill-preview-img { transition: opacity 0.4s ease-in-out; }
@@ -108,6 +127,7 @@
 </head>
 <body>
 
+    <div class="bg-grain"></div>
     <canvas id="bg-canvas"></canvas>
 
     <!-- NAV BAR -->
@@ -135,7 +155,7 @@
             <div class="space-y-10">
                 <div class="hero-content-part" id="hero-line-1">
                     <h1 class="text-5xl md:text-7xl font-black leading-tight uppercase text-white">
-                        <span id="welcome-placeholder" class="opacity-0">Welcome</span>, I'm <br>
+                        <span id="welcome-placeholder" class="opacity-0"></span>Welcome, I'm <br>
                         <span class="neon-purple-text">John Fernand</span>
                     </h1>
                 </div>
@@ -156,7 +176,7 @@
 
             <div class="hero-content-part flex justify-center md:justify-end" id="hero-image" style="transition-delay: 0.5s; opacity: 0;">
                 <div class="profile-frame w-full max-w-[420px] overflow-hidden rounded-3xl relative group premium-highlight">
-                    <img src="media/F2.jpg" alt="Profile" class="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110">
+                    <img src="media/F2.jpg" alt="Profile" class="w-full h-full object-cover grayscale transition-all duration-1000 group-hover:grayscale-0 group-hover:scale-110">
                 </div>
             </div>
         </div>
@@ -165,41 +185,80 @@
     <!-- 2. ABOUT ME SECTION -->
     <section id="about" class="py-48 max-w-7xl mx-auto px-6">
         <div class="max-w-6xl mx-auto content-reveal"> 
-            <!-- BIOGRAPHY -->
+            
+            <!-- TOP PART: BIOGRAPHY -->
             <div class="grid md:grid-cols-2 gap-24 items-center mb-56">
                 <div class="order-2 md:order-1">
-                    <h2 class="text-5xl font-black mb-10 neon-purple-text uppercase tracking-tighter italic">Who I Am</h2>
-                    <p class="text-gray-200 text-xl leading-relaxed mb-8">
-                        Hello! I am a passionate creative dedicated to the art of visual storytelling. I believe that every frame has a voice and every cut tells a story.
-                    </p>
-                    <p class="text-gray-200 text-xl leading-relaxed border-l-4 border-purple-500 pl-6 italic">
-                        I focus on the "why" behind the edit—ensuring that every project I touch resonates emotionally and achieves its goal.
-                    </p>
+                    <h2 class="text-6xl font-black mb-12 neon-purple-text uppercase tracking-tighter italic leading-none">
+                        Hi, I'm <br><span class="text-white">John Fernand</span>
+                    </h2>
+                    
+                    <div class="space-y-6 text-gray-300 text-lg leading-relaxed font-light tracking-wide">
+                        <p>
+                            A <span class="text-white font-bold">18-year-old</span> 
+                            <span class="text-purple-400 font-medium">Bachelor of Science in Information Technology</span> 
+                            student at Davao Oriental State University. I bridge the gap between technical precision and creative storytelling.
+                        </p>
+                        
+                        <p>
+                            As a proud member of the <span class="text-purple-400 font-bold border-b border-purple-900/50 pb-1">Aces Media Team</span>, 
+                            I operate dynamically as a videographer, photographer, and editor. I thrive on the challenge of taking a fleeting moment and piecing it into a compelling narrative.
+                        </p>
+
+                        <p class="pt-4 border-l-2 border-purple-600 pl-6 italic text-gray-400">
+                            "I always focus on the <span class="text-white font-semibold">'why'</span> behind the edit. No shortcuts—just deep intention and pure dedication."
+                        </p>
+                    </div>
                 </div>
-                <div class="order-1 md:order-2 flex justify-center">
-                    <div class="w-72 h-72 md:w-[450px] md:h-[450px] rounded-full overflow-hidden purple-glow-circle relative premium-highlight">
-                        <img src="media/Me.jpg" alt="Profile" class="w-full h-full object-cover">
+
+                <!-- Profile Image (Original Color + Constant Glow) -->
+                <div class="order-1 md:order-2 flex justify-center relative">
+                    <!-- Ambient background glow behind the photo -->
+                    <div class="absolute inset-0 bg-purple-600/20 blur-[100px] rounded-full scale-110"></div>
+                    
+                    <!-- The Circle Image -->
+                    <div class="w-72 h-72 md:w-[480px] md:h-[480px] rounded-full overflow-hidden relative z-10 border-4 border-purple-500 shadow-[0_0_40px_rgba(177,102,204,0.6)]">
+                        <!-- Removed grayscale class -->
+                        <img src="media/Me.jpg" alt="John Fernand" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
                     </div>
                 </div>
             </div>
 
-            <!-- WORKSPACE -->
+            <!-- BOTTOM PART: WORKSPACE -->
             <div class="grid md:grid-cols-2 gap-24 items-center">
-                <div class="rounded-3xl overflow-hidden glass-card p-2 premium-highlight">
-                    <img src="media/workspace.jpg" alt="Workspace" class="w-full rounded-2xl opacity-80 hover:opacity-100 transition duration-700">
+                <!-- Workspace Image (Original Color + Glow Border) -->
+                <div class="rounded-[40px] overflow-hidden glass-card p-3 border-2 border-purple-500/50 shadow-[0_0_35px_rgba(177,102,204,0.3)] group">
+                    <div class="rounded-[30px] overflow-hidden relative">
+                        <!-- Removed grayscale and low opacity -->
+                        <img src="media/workspace.jpg" alt="The Edit Suite" class="w-full opacity-100 group-hover:scale-105 transition-all duration-1000 ease-out">
+                        <!-- Subtle overlay text on image -->
+                        <div class="absolute bottom-6 left-8">
+                            <span class="text-[10px] font-bold tracking-[0.4em] text-white bg-black/40 px-3 py-1 rounded-full uppercase backdrop-blur-md">Production Suite 2025</span>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <h2 class="text-4xl font-bold italic purple-underline uppercase tracking-tighter">The Workspace Behind The Craft.</h2>
-                    <p class="text-gray-200 text-xl leading-relaxed mb-10 mt-10">
-                        I don’t just cut clips; I build narratives. With years in the edit suite, I’ve learned that the difference between a good video and a viral one is in the pacing and sound design.
+                
+                <div class="space-y-8">
+                    <h2 class="text-4xl font-black italic purple-underline uppercase tracking-tighter leading-tight">
+                        The Workspace <br><span class="text-white">Behind The Craft.</span>
+                    </h2>
+                    
+                    <p class="text-gray-300 text-xl leading-relaxed font-light">
+                        My edit suite is where logic meets emotion. With years spent mastering the timeline, I've learned that a viral video isn't just about effects—it's about the <span class="text-white font-bold">pacing</span> and <span class="text-white font-bold">sound design</span> that connects with the viewer's heartbeat.
                     </p>
-                    <p class="text-gray-400 italic text-xl">
-                        "Precision in Every Frame. Emotion in Every Edit."
-                    </p>
+                    
+                    <div class="bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-2xl">
+                        <p class="text-purple-400 italic text-xl font-medium tracking-tight">
+                            "Precision in Every Frame. Emotion in Every Edit."
+                        </p>
+                    </div>
                 </div>
             </div>
+
         </div>
     </section>
+
+        
 
     <!-- 3. SKILLS SECTION -->
     <section id="skills" class="py-48 max-w-7xl mx-auto px-6">
@@ -243,8 +302,8 @@
 
     <!-- 4. PORTFOLIO SECTION -->
     <section id="projects" class="py-48 max-w-7xl mx-auto px-6">
-        <div class="content-reveal text-white">
-            <h2 class="text-6xl font-black mb-32 text-center uppercase tracking-tighter italic">Portfolio</h2>
+        <div class="content-reveal"> 
+            <h2 class="text-6xl font-black mb-32 text-center uppercase tracking-tighter italic text-white">Selected Portfolio</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-32">
                 <script>
                     for(let i=1; i<=3; i++) {
@@ -252,7 +311,7 @@
                     }
                 </script>
             </div>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-white">
                 <script>
                     for(let i=1; i<=8; i++) {
                         document.write(`<div onclick="openProject('l${i}')" class="aspect-square glass-card cursor-pointer overflow-hidden rounded-2xl border-2 premium-highlight"><img src="media/l${i}.jpg" class="w-full h-full object-cover opacity-40 hover:opacity-100 transition duration-500"></div>`);
@@ -265,21 +324,21 @@
     <!-- 5. ACCOMPLISHMENTS SECTION -->
     <section id="accomplishments" class="py-48 max-w-7xl mx-auto px-6">
         <div class="max-w-6xl mx-auto text-center content-reveal">
-            <h2 class="text-5xl font-black mb-24 uppercase tracking-widest italic text-white">Proven Results</h2>
+            <h2 class="text-5xl font-black mb-24 uppercase tracking-widest italic text-white">Accomplishments</h2>
             <div class="grid md:grid-cols-2 gap-12 mb-20">
                 <div class="glass-card p-12 rounded-3xl flex items-center space-x-10 text-left border-b-4 border-purple-600 premium-highlight">
                     <i class="fa-solid fa-trophy text-5xl neon-purple-text"></i>
-                    <div><h4 class="text-2xl font-black uppercase mb-2 text-white">Achievement</h4><p class="text-gray-400 text-lg italic">Awarded Excellence</p></div>
+                    <div><h4 class="text-2xl font-black uppercase mb-2 text-white">Achievement</h4><p class="text-gray-400 text-lg italic"></p></div>
                 </div>
                 <div class="glass-card p-12 rounded-3xl flex items-center space-x-10 text-left border-b-4 border-purple-600 premium-highlight">
                     <i class="fa-solid fa-users text-5xl neon-purple-text"></i>
-                    <div><h4 class="text-2xl font-black uppercase mb-2 text-white">MediaKilo</h4><p class="text-gray-400 text-lg italic">Global Reach</p></div>
+                    <div><h4 class="text-2xl font-black uppercase mb-2 text-white">MediaKilo</h4><p class="text-gray-400 text-lg italic"></p></div>
                 </div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-                <div onclick="openProject('a1')" class="aspect-video glass-card rounded-3xl overflow-hidden cursor-pointer group premium-highlight"><img src="media/a1.jpg" alt="A1" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition"></div>
-                <div onclick="openProject('a2')" class="aspect-video glass-card rounded-3xl overflow-hidden cursor-pointer group premium-highlight"><img src="media/a2.jpg" alt="A2" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition"></div>
-                <div onclick="openProject('a3')" class="aspect-video glass-card rounded-3xl overflow-hidden cursor-pointer group premium-highlight"><img src="media/a3.jpg" alt="A3" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition"></div>
+                <div onclick="openProject('a1')" class="aspect-video glass-card rounded-3xl overflow-hidden cursor-pointer group border-2 premium-highlight"><img src="media/a1.jpg" alt="A1" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition duration-500"></div>
+                <div onclick="openProject('a2')" class="aspect-video glass-card rounded-3xl overflow-hidden cursor-pointer group border-2 premium-highlight"><img src="media/a2.jpg" alt="A2" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition duration-500"></div>
+                <div onclick="openProject('a3')" class="aspect-video glass-card rounded-3xl overflow-hidden cursor-pointer group border-2 premium-highlight"><img src="media/a3.jpg" alt="A3" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition duration-500"></div>
             </div>
         </div>
     </section>
@@ -289,14 +348,16 @@
         <div class="content-reveal"> 
             <h2 class="text-5xl font-black mb-24 uppercase tracking-widest text-center md:text-left color-swipe">Service Menu</h2>
             <div class="grid md:grid-cols-2 gap-20 items-start">
+                
+                <!-- LEFT SELECTION -->
                 <div class="glass-card p-10 rounded-[30px] border-2 border-purple-500/20 space-y-10 premium-highlight">
                     <div>
                         <label class="block text-purple-400 font-bold uppercase tracking-widest mb-4 text-xs">1. Select Edit Type</label>
                         <div class="grid grid-cols-2 gap-4">
                             <button type="button" onclick="setBasePrice(500, 'Short Form')" class="price-option p-4 rounded-xl border border-white/10 hover:border-purple-500 transition text-sm font-bold uppercase text-white">Short Form</button>
-                            <button type="button" onclick="setBasePrice(1500, 'YouTube Edit')" class="price-option p-4 rounded-xl border border-white/10 hover:border-purple-500 transition text-sm font-bold uppercase text-white">YouTube</button>
-                            <button type="button" onclick="setBasePrice(3000, 'Cinematic/Commercial')" class="price-option p-4 rounded-xl border border-white/10 hover:border-purple-500 transition text-sm font-bold uppercase text-white">Cinematic</button>
-                            <button type="button" onclick="setBasePrice(1000, 'Gaming Edit')" class="price-option p-4 rounded-xl border border-white/10 hover:border-purple-500 transition text-sm font-bold uppercase text-white">Gaming</button>
+                            <button type="button" onclick="setBasePrice(500, 'YouTube Edit')" class="price-option p-4 rounded-xl border border-white/10 hover:border-purple-500 transition text-sm font-bold uppercase text-white">YouTube</button>
+                            <button type="button" onclick="setBasePrice(500, 'Cinematic/Commercial')" class="price-option p-4 rounded-xl border border-white/10 hover:border-purple-500 transition text-sm font-bold uppercase text-white">Cinematic</button>
+                            <button type="button" onclick="setBasePrice(500, 'Promotional')" class="price-option p-4 rounded-xl border border-white/10 hover:border-purple-500 transition text-sm font-bold uppercase text-white">Promotional</button>
                         </div>
                     </div>
                     <div>
@@ -307,38 +368,53 @@
                         </div>
                     </div>
                     <div>
-                        <label class="block text-purple-400 font-bold uppercase tracking-widest mb-4 text-xs">3. Premium Add-ons</label>
+                        <label class="block text-purple-400 font-bold uppercase tracking-widest mb-4 text-xs">3. Add-ons</label>
                         <div class="space-y-4">
                             <label class="flex items-center space-x-3 cursor-pointer group">
                                 <input type="checkbox" value="100" class="addon-check w-5 h-5 rounded border-purple-500 text-purple-600 bg-black/40 focus:ring-purple-500" onchange="calculateTotal()">
                                 <span class="text-gray-300 group-hover:text-white transition text-sm font-medium tracking-wide">Subtitles (+₱100)</span>
                             </label>
                             <label class="flex items-center space-x-3 cursor-pointer group">
-                                <input type="checkbox" value="200" class="addon-check w-5 h-5 rounded border-purple-500 text-purple-600 bg-black/40 focus:ring-purple-500" onchange="calculateTotal()">
-                                <span class="text-gray-300 group-hover:text-white transition text-sm font-medium tracking-wide">Sound Design (+₱200)</span>
+                                <input type="checkbox" value="100" class="addon-check w-5 h-5 rounded border-purple-500 text-purple-600 bg-black/40 focus:ring-purple-500" onchange="calculateTotal()">
+                                <span class="text-gray-300 group-hover:text-white transition text-sm font-medium tracking-wide">Sound Design (+₱100)</span>
                             </label>
                             <label class="flex items-center space-x-3 cursor-pointer group">
-                                <input type="checkbox" value="500" class="addon-check w-5 h-5 rounded border-purple-500 text-purple-600 bg-black/40 focus:ring-purple-500" onchange="calculateTotal()">
-                                <span class="text-gray-300 group-hover:text-white transition text-sm font-medium tracking-wide">Shooting (+₱500)</span>
+                                <input type="checkbox" value="300" class="addon-check w-5 h-5 rounded border-purple-500 text-purple-600 bg-black/40 focus:ring-purple-500" onchange="calculateTotal()">
+                                <span class="text-gray-300 group-hover:text-white transition text-sm font-medium tracking-wide">Shooting (+₱300)</span>
                             </label>
                         </div>
                     </div>
                 </div>
 
+                <!-- RIGHT SUMMARY -->
                 <div class="sticky top-32">
                     <div class="glass-card p-10 rounded-[30px] border-2 border-purple-500 shadow-[0_0_50px_rgba(157,80,187,0.2)] premium-highlight">
-                        <h3 class="text-2xl font-black uppercase italic mb-6 text-white text-center">Order Summary</h3>
+                        <h3 class="text-2xl font-black uppercase italic mb-6 text-white text-center tracking-widest">Details Summary</h3>
+                        
                         <div class="space-y-4 mb-8 border-b border-white/10 pb-8 text-gray-400 text-sm italic">
                             <p>Edit Style: <span id="summary-type" class="text-white not-italic font-bold">Select Style</span></p>
-                            <p>Estimated Total:</p>
+                            <p>Projected Total:</p>
                             <p class="text-6xl font-black text-white price-total-glow">₱<span id="total-price">0</span></p>
                         </div>
+
+                        <!-- GMAIL CONTACT FORM -->
                         <form action="https://formsubmit.co/johnbajador08@gmail.com" method="POST" class="space-y-4">
                             <input type="hidden" name="Service_Type" id="form-type">
+                            <input type="hidden" name="Video_Length" id="form-duration">
                             <input type="hidden" name="Quote" id="form-total">
-                            <input type="text" name="name" placeholder="YOUR NAME" required class="w-full bg-black/50 border border-white/10 p-4 rounded-xl text-white outline-none focus:border-purple-500">
-                            <input type="email" name="email" placeholder="YOUR GMAIL" required class="w-full bg-black/50 border border-white/10 p-4 rounded-xl text-white outline-none focus:border-purple-500">
-                            <button type="submit" class="gradient-btn w-full py-5 rounded-full font-black uppercase shadow-xl text-white">Send Inquiry</button>
+
+                            <div class="space-y-4 text-white">
+                                <input type="text" name="name" placeholder="YOUR NAME" required 
+                                       class="w-full bg-black/50 border border-white/10 p-4 rounded-xl outline-none focus:border-purple-500 transition font-bold text-xs tracking-widest">
+                                <input type="email" name="email" placeholder="YOUR GMAIL" required 
+                                       class="w-full bg-black/50 border border-white/10 p-4 rounded-xl outline-none focus:border-purple-500 transition font-bold text-xs tracking-widest">
+                                <textarea name="message" placeholder="TELL ME ABOUT YOUR PROJECT..." rows="4" 
+                                          class="w-full bg-black/50 border border-white/10 p-4 rounded-xl outline-none focus:border-purple-500 transition font-medium text-sm"></textarea>
+                            </div>
+                            
+                            <button type="submit" class="gradient-btn w-full py-5 rounded-full font-black uppercase shadow-xl text-white text-sm tracking-[0.3em]">
+                                Send Inquiry
+                            </button>
                         </form>
                     </div>
                 </div>
@@ -347,7 +423,7 @@
     </section>
 
     <!-- FOOTER -->
-    <footer id="contact-footer" class="w-full py-10 px-6 border-t" style="background: rgba(10, 10, 10, 0.3); backdrop-filter: blur(25px) saturate(180%);">
+    <footer id="contact-footer" class="w-full py-10 px-6 border-t" style="background: rgba(10, 10, 10, 0.3); backdrop-filter: blur(25px) saturate(180%); border-color: rgba(177, 102, 204, 0.15);">
         <div class="max-w-7xl mx-auto flex flex-col items-center">
             <div class="flex justify-center space-x-12 mb-8 text-4xl text-white">
                 <a href="https://facebook.com/Shadow.web.08" target="_blank" class="text-gray-400 hover:neon-purple-text transition transform hover:scale-110"><i class="fa-brands fa-facebook"></i></a>
@@ -362,8 +438,12 @@
     <div id="projectModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 bg-black/98 backdrop-blur-xl">
         <div class="w-full max-w-5xl bg-[#0a0014] rounded-[40px] border border-purple-500/40 overflow-hidden shadow-2xl">
             <div class="p-8">
-                <div id="videoContainer" class="hidden aspect-video bg-black rounded-xl overflow-hidden"><video id="modalVideoPlayer" controls class="w-full h-full"><source id="videoSource" src="" type="video/mp4"></video></div>
-                <div id="layoutContainer" class="hidden text-center"><img id="modalImage" src="" class="max-h-[70vh] mx-auto rounded-xl"></div>
+                <div id="videoContainer" class="hidden aspect-video bg-black rounded-xl overflow-hidden">
+                    <video id="modalVideoPlayer" controls class="w-full h-full"><source id="videoSource" src="" type="video/mp4"></video>
+                </div>
+                <div id="layoutContainer" class="hidden text-center">
+                    <img id="modalImage" src="" class="max-h-[70vh] mx-auto rounded-xl">
+                </div>
                 <div class="mt-8 flex justify-between items-center text-white">
                     <h3 id="modalTitle" class="text-3xl font-black uppercase tracking-widest italic">Project</h3>
                     <button onclick="closeModal()" class="gradient-btn px-10 py-4 rounded-xl font-bold uppercase flex items-center gap-2"><i class="fa-solid fa-arrow-left"></i> Back</button>
@@ -378,14 +458,14 @@
             document.body.style.overflow = 'auto';
             const btn = document.getElementById('welcome-pill');
             const placeholder = document.getElementById('welcome-placeholder');
+            const container = document.getElementById('home-reveal-container');
+            const nav = document.getElementById('main-nav');
             const targetRect = placeholder.getBoundingClientRect();
             btn.style.top = (targetRect.top + (targetRect.height / 2)) + 'px';
             btn.style.left = (targetRect.left + (targetRect.width / 2)) + 'px';
             btn.style.transform = 'translate(-50%, -50%) scale(0.2)'; btn.style.opacity = '0';
             setTimeout(() => {
-                btn.style.display = 'none';
-                document.getElementById('home-reveal-container').classList.remove('hidden');
-                document.getElementById('main-nav').classList.add('opacity-100');
+                btn.style.display = 'none'; container.classList.remove('hidden'); nav.classList.add('opacity-100');
                 placeholder.classList.remove('opacity-0');
                 document.getElementById('hero-line-1').classList.add('reveal-active');
                 document.getElementById('hero-line-2').classList.add('reveal-active');
@@ -395,13 +475,13 @@
             }, 800);
         }
 
-        /* --- THE REPEATING REVEAL LOGIC --- */
         const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) entry.target.classList.add('revealed');
                 else entry.target.classList.remove('revealed');
             });
-        }, { threshold: 0.1 });
+        }, { threshold: 0.15 });
+
         document.querySelectorAll('.content-reveal').forEach(el => revealObserver.observe(el));
 
         const navLinks = document.querySelectorAll('.nav-link, #explore-btn');
@@ -419,7 +499,7 @@
         window.addEventListener('scroll', () => {
             let current = "";
             document.querySelectorAll('section').forEach(section => {
-                if (pageYOffset >= section.offsetTop - 250) current = section.getAttribute('id');
+                if (pageYOffset >= section.offsetTop - 200) current = section.getAttribute('id');
             });
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.classList.remove('nav-active');
@@ -435,7 +515,6 @@
         }
         function resetSkillPreview() { updateSkillPreview("media/skills.jpg", "Skills Overview"); }
 
-        /* --- PRICING LOGIC --- */
         let basePrice = 0; let typeName = "";
         function setBasePrice(price, name) {
             basePrice = price; typeName = name;
@@ -443,6 +522,7 @@
             event.target.classList.add('border-purple-500', 'bg-purple-500/10');
             calculateTotal();
         }
+
         function calculateTotal() {
             const duration = document.getElementById('durationRange').value;
             document.getElementById('durationValue').innerText = duration + " MINS";
@@ -452,10 +532,11 @@
             document.querySelectorAll('.addon-check:checked').forEach(addon => total += parseInt(addon.value));
             document.getElementById('total-price').innerText = total;
             document.getElementById('form-type').value = typeName;
+            document.getElementById('form-duration').value = duration + " Minutes";
             document.getElementById('form-total').value = "₱" + total;
         }
 
-        /* --- CONSTELLATION --- */
+        /* Constellation Background */
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -494,7 +575,7 @@
         const projectData = { 
             v1:{type:'video',title:'OBB SAMPLE',video:'media/j1.mp4'}, v2:{type:'video',title:'RECAP',video:'media/j2.mp4'}, v3:{type:'video',title:'OBB SAMPLE',video:'media/j3.mp4'}, 
             l1:{type:'layout',title:'Layout 01',img:'media/m1.jpg'}, l2:{type:'layout',title:'Layout 02',img:'media/m2.jpg'}, l3:{type:'layout',title:'Layout 03',img:'media/m3.jpg'}, l4:{type:'layout',title:'Layout 04',img:'media/m4.jpg'}, l5:{type:'layout',title:'Layout 05',img:'media/m5.jpg'}, l6:{type:'layout',title:'Layout 06',img:'media/m6.jpg'}, l7:{type:'layout',title:'Layout 07',img:'media/m7.jpg'}, l8:{type:'layout',title:'Layout 08',img:'media/m8.jpg'},
-            a1:{type:'layout',title:'Award 01',img:'media/a1.jpg'}, a2:{type:'layout',title:'2nd Runner-up-Short Film',img:'media/a2.jpg'}, a3:{type:'layout',title:'Achievement 03',img:'media/a3.jpg'}
+            a1:{type:'layout',title:'Achievement 01',img:'media/a1.jpg'}, a2:{type:'layout',title:'2nd Runner-up-Short Film',img:'media/a2.jpg'}, a3:{type:'layout',title:'Achievement 03',img:'media/a3.jpg'}
         };
         function openProject(id) {
             const data = projectData[id];
