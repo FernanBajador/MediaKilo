@@ -68,59 +68,218 @@
             border-color: rgba(177, 102, 204, 0.15);
         }
 
-        /* --- UNIVERSAL MOBILE FIX (Laptop & Phone) --- */
+        /* ============================================
+           MOBILE RESPONSIVE FIXES (max-width: 768px)
+           ============================================ */
         @media (max-width: 768px) {
-            /* 1. Reduce the massive padding from Laptop size to Phone size */
+
+            /* 1. SECTION PADDING — reduce the massive desktop py-48 to something
+                  that fits a phone screen without giant empty gaps */
             section {
-                padding-top: 5rem !important;
-                padding-bottom: 5rem !important;
+                padding-top: 4rem !important;
+                padding-bottom: 4rem !important;
+                /* Ensure horizontal padding doesn't clip content */
+                padding-left: 1.25rem !important;
+                padding-right: 1.25rem !important;
             }
 
-            /* 2. Force all 2-column grids to become 1-column so they don't overlap */
-            .grid-cols-2, .md\:grid-cols-2 {
-                grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
-                gap: 2.5rem !important;
-            }
+            /* 2. TYPOGRAPHY — scale down the oversized desktop headings */
+            h1 { font-size: 2.2rem !important; line-height: 1.15 !important; }
+            h2 { font-size: 1.8rem !important; line-height: 1.2 !important; }
+            h3 { font-size: 1.25rem !important; }
+            h4 { font-size: 1.1rem !important; }
 
-            /* 3. Scale down the huge titles so they fit on one screen */
-            h1 { font-size: 2.5rem !important; line-height: 1.2 !important; }
-            h2 { font-size: 2rem !important; }
-            h3 { font-size: 1.5rem !important; }
-
-            /* 4. Fix the Nav Bar: allow it to scroll sideways so tabs don't disappear */
-            #main-nav {
-                overflow-x: auto !important;
-                -webkit-overflow-scrolling: touch;
-            }
+            /* 3. NAVIGATION — collapse the desktop nav links into a hidden hamburger
+                  area; on phones we just hide the link row so it doesn't overflow */
             #main-nav .max-w-7xl {
-                min-width: 600px; /* Ensures tabs stay in a line on small phones */
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+            /* Hide the desktop nav links on phones */
+            #main-nav .hidden.md\:flex {
+                display: none !important;
             }
 
-            /* 5. Scale down the large images (Profile & Workspace) */
-            .w-72, .md\:w-\[450px\], .md\:w-\[480px\] {
-                width: 250px !important;
-                height: 250px !important;
-            }
-            
-            .profile-frame {
-                max-width: 100% !important;
-            }
-
-            /* 6. Adjust the Welcome Button for fingers */
+            /* 4. WELCOME PILL BUTTON — smaller text + padding so it fits the viewport */
             #welcome-pill {
-                padding: 1.5rem 3rem !important;
-                font-size: 1.2rem !important;
-                letter-spacing: 0.3em !important;
+                padding: 1.25rem 2.5rem !important;
+                font-size: 1.4rem !important;
+                letter-spacing: 0.25em !important;
+                white-space: nowrap;
+                max-width: 90vw;
             }
 
-            /* 7. Ensure Pricing selection stays inside the screen */
-            #pricing .grid-cols-2 {
-                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+            /* 5. HOME HERO — stack the two-column grid vertically and center text */
+            #home-reveal-container {
+                grid-template-columns: 1fr !important;
+                gap: 2rem !important;
+                text-align: center;
+            }
+            #home-reveal-container .space-y-10 {
+                align-items: center;
+                display: flex;
+                flex-direction: column;
+            }
+            #home-reveal-container p.border-l-2 {
+                text-align: left;
+            }
+            /* Profile frame in hero: full width, reasonable height */
+            #home .profile-frame {
+                max-width: 85vw !important;
+                width: 85vw !important;
+                aspect-ratio: 3/4;
+                height: auto !important;
+            }
+            #hero-image {
+                justify-content: center !important;
+            }
+
+            /* 6. ABOUT — stack bio + image, shrink the large circle photo */
+            #about .grid {
+                grid-template-columns: 1fr !important;
+                gap: 2rem !important;
+            }
+            /* Huge gap between bio and workspace was mb-56; reduce it on mobile */
+            #about .mb-56 {
+                margin-bottom: 3rem !important;
+            }
+            /* Circular profile image: shrink from 480px to something phone-friendly */
+            #about .w-72 {
+                width: 220px !important;
+                height: 220px !important;
+            }
+            /* Override the responsive w/h classes used on the circle */
+            #about [class*="md:w-[480px]"],
+            #about [class*="md:h-[480px]"] {
+                width: 220px !important;
+                height: 220px !important;
+            }
+            /* Fix order: on mobile, image goes below text, not above */
+            #about .order-2.md\:order-1 { order: 1 !important; }
+            #about .order-1.md\:order-2 { order: 2 !important; }
+
+            /* 7. SKILLS — hide the preview image panel on mobile (it's hidden by default
+                  with hidden md:block, but we confirm it), let skill cards fill width */
+            #skills .grid.md\:grid-cols-2 {
+                grid-template-columns: 1fr !important;
+                gap: 1.5rem !important;
+            }
+
+            /* 8. PORTFOLIO — video cards stay single column, layout grid becomes 2-col */
+            #projects .grid.md\:grid-cols-3 {
+                grid-template-columns: 1fr !important;
+                gap: 1rem !important;
+                margin-bottom: 1.5rem !important;
+            }
+            /* The 2×4 layout grid: stay 2-col so thumbnails aren't huge */
+            #projects .grid.grid-cols-2.md\:grid-cols-4 {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 0.6rem !important;
+            }
+            /* Reduce the large mb-32 gap above the layout grid */
+            #projects .mb-32 {
+                margin-bottom: 1.5rem !important;
+            }
+
+            /* 9. ACCOMPLISHMENTS — stack achievement cards vertically */
+            #accomplishments .grid.md\:grid-cols-2 {
+                grid-template-columns: 1fr !important;
+                gap: 1rem !important;
+                margin-bottom: 1.5rem !important;
+            }
+            /* Reduce excessive padding inside achievement cards on mobile */
+            #accomplishments .glass-card.p-12 {
+                padding: 1.5rem !important;
+            }
+            #accomplishments .space-x-10 {
+                gap: 1rem !important;
+            }
+            /* The 3-image grid under accomplishments */
+            #accomplishments .grid.md\:grid-cols-3 {
+                grid-template-columns: 1fr !important;
+                gap: 0.75rem !important;
+            }
+
+            /* 10. PRICING — stack the two-column pricing layout */
+            #pricing .grid.md\:grid-cols-2 {
+                grid-template-columns: 1fr !important;
+                gap: 1.5rem !important;
+            }
+            /* The sticky summary card: disable sticky on mobile so it sits naturally */
+            #pricing .sticky {
+                position: static !important;
+            }
+            /* Reduce glass card padding on mobile */
+            #pricing .glass-card.p-10 {
+                padding: 1.5rem !important;
+            }
+            /* Edit type selector: keep 2-col grid but shrink button text */
+            #pricing .grid.grid-cols-2 {
+                grid-template-columns: repeat(2, 1fr) !important;
                 gap: 0.5rem !important;
             }
             .price-option {
-                padding: 0.75rem !important;
-                font-size: 10px !important;
+                padding: 0.65rem 0.5rem !important;
+                font-size: 0.65rem !important;
+                letter-spacing: 0.04em !important;
+            }
+            /* Reduce mb-24 heading gaps on mobile */
+            #pricing .mb-24 {
+                margin-bottom: 1.5rem !important;
+            }
+
+            /* 11. SECTION HEADING GAP — mb-24 and mb-32 used below headings is too large */
+            .mb-24 { margin-bottom: 1.5rem !important; }
+            .mb-32 { margin-bottom: 1.5rem !important; }
+
+            /* 12. MODAL — make the modal use full screen on phones */
+            #projectModal > div {
+                max-width: 100% !important;
+                border-radius: 1rem !important;
+                margin: 0.5rem !important;
+            }
+            #projectModal .p-8 {
+                padding: 1rem !important;
+            }
+            #projectModal #modalTitle {
+                font-size: 1rem !important;
+                letter-spacing: 0.1em !important;
+            }
+            #projectModal button {
+                padding: 0.6rem 1.2rem !important;
+                font-size: 0.75rem !important;
+            }
+
+            /* 13. FOOTER — reduce social icon spacing */
+            footer .space-x-12 {
+                gap: 1.5rem !important;
+            }
+            footer .text-4xl {
+                font-size: 1.75rem !important;
+            }
+        }
+
+        /* ============================================
+           SMALL PHONE FIXES (max-width: 480px)
+           ============================================ */
+        @media (max-width: 480px) {
+            h1 { font-size: 1.9rem !important; }
+            h2 { font-size: 1.6rem !important; }
+
+            #welcome-pill {
+                padding: 1rem 2rem !important;
+                font-size: 1.2rem !important;
+            }
+
+            /* On very small screens, accomplishment card icon + text can overflow */
+            #accomplishments .glass-card.p-12 {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                gap: 0.75rem !important;
+            }
+            #accomplishments .fa-trophy,
+            #accomplishments .fa-users {
+                font-size: 2rem !important;
             }
         }
 
@@ -191,6 +350,7 @@
     <nav id="main-nav" class="fixed w-full z-50 backdrop-blur-lg border-b opacity-0 transition-opacity duration-1000">
         <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
             <div class="text-2xl font-bold tracking-tighter uppercase italic"><span class="neon-purple-text">Media Kilo</span></div>
+            <!-- Desktop nav links (hidden on mobile) -->
             <div class="hidden md:flex space-x-10 text-xs font-bold uppercase tracking-widest text-gray-300">
                 <a href="#home" class="nav-link nav-active hover:text-white transition">Home</a>
                 <a href="#about" class="nav-link hover:text-white transition">About Me</a>
@@ -199,6 +359,21 @@
                 <a href="#accomplishments" class="nav-link hover:text-white transition">Accomplishments</a>
                 <a href="#pricing" class="nav-link hover:text-white transition">Pricing</a>
             </div>
+            <!-- Hamburger button (visible only on mobile) -->
+            <button id="hamburger-btn" onclick="toggleMobileMenu()" class="md:hidden flex flex-col justify-center items-center w-10 h-10 gap-1.5 rounded-lg focus:outline-none" aria-label="Open menu">
+                <span class="block w-6 h-0.5 bg-white transition-all duration-300" id="ham-line-1"></span>
+                <span class="block w-6 h-0.5 bg-white transition-all duration-300" id="ham-line-2"></span>
+                <span class="block w-6 h-0.5 bg-white transition-all duration-300" id="ham-line-3"></span>
+            </button>
+        </div>
+        <!-- Mobile nav drawer (hidden by default) -->
+        <div id="mobile-nav-drawer" class="md:hidden hidden px-6 pb-6 flex-col gap-3 text-xs font-bold uppercase tracking-widest text-gray-300">
+            <a href="#home" onclick="closeMobileMenu()" class="nav-link nav-active hover:text-white transition block py-2">Home</a>
+            <a href="#about" onclick="closeMobileMenu()" class="nav-link hover:text-white transition block py-2">About Me</a>
+            <a href="#skills" onclick="closeMobileMenu()" class="nav-link hover:text-white transition block py-2">Skills</a>
+            <a href="#projects" onclick="closeMobileMenu()" class="nav-link hover:text-white transition block py-2">Portfolio</a>
+            <a href="#accomplishments" onclick="closeMobileMenu()" class="nav-link hover:text-white transition block py-2">Accomplishments</a>
+            <a href="#pricing" onclick="closeMobileMenu()" class="nav-link hover:text-white transition block py-2">Pricing</a>
         </div>
     </nav>
 
@@ -647,6 +822,29 @@
             document.getElementById('projectModal').classList.remove('hidden'); document.body.style.overflow = 'hidden';
         }
         function closeModal() { document.getElementById('projectModal').classList.add('hidden'); document.getElementById('modalVideoPlayer').pause(); document.body.style.overflow = 'auto'; }
+
+        /* ---- HAMBURGER MOBILE MENU ---- */
+        function toggleMobileMenu() {
+            const drawer = document.getElementById('mobile-nav-drawer');
+            const isHidden = drawer.classList.contains('hidden');
+            if (isHidden) {
+                drawer.classList.remove('hidden');
+                drawer.classList.add('flex');
+                document.getElementById('ham-line-1').style.transform = 'translateY(8px) rotate(45deg)';
+                document.getElementById('ham-line-2').style.opacity = '0';
+                document.getElementById('ham-line-3').style.transform = 'translateY(-8px) rotate(-45deg)';
+            } else {
+                closeMobileMenu();
+            }
+        }
+        function closeMobileMenu() {
+            const drawer = document.getElementById('mobile-nav-drawer');
+            drawer.classList.add('hidden');
+            drawer.classList.remove('flex');
+            document.getElementById('ham-line-1').style.transform = '';
+            document.getElementById('ham-line-2').style.opacity = '';
+            document.getElementById('ham-line-3').style.transform = '';
+        }
         window.onclick = function(event) { if (event.target == document.getElementById('projectModal')) { closeModal(); } }
     </script>
 </body>
