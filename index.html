@@ -23,6 +23,7 @@
         /* --- NEW: ENHANCED PROFILE GLOW --- */
         .purple-glow-circle { 
             border: 4px solid var(--neon-purple); 
+            /* Multi-layered glow for maximum "Cyber" effect */
             box-shadow: 0 0 30px rgba(177, 102, 204, 0.8), 
                         0 0 60px rgba(177, 102, 204, 0.4), 
                         inset 0 0 20px rgba(177, 102, 204, 0.4); 
@@ -67,48 +68,59 @@
             border-color: rgba(177, 102, 204, 0.15);
         }
 
-        /* --- UPDATED RESPONSIVE FIXES --- */
+        /* --- UNIVERSAL MOBILE FIX (Laptop & Phone) --- */
         @media (max-width: 768px) {
+            /* 1. Reduce the massive padding from Laptop size to Phone size */
             section {
-                padding-top: 4rem !important;
-                padding-bottom: 4rem !important;
+                padding-top: 5rem !important;
+                padding-bottom: 5rem !important;
             }
 
-            /* Fix Navigation scrolling on small phones */
+            /* 2. Force all 2-column grids to become 1-column so they don't overlap */
+            .grid-cols-2, .md\:grid-cols-2 {
+                grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+                gap: 2.5rem !important;
+            }
+
+            /* 3. Scale down the huge titles so they fit on one screen */
+            h1 { font-size: 2.5rem !important; line-height: 1.2 !important; }
+            h2 { font-size: 2rem !important; }
+            h3 { font-size: 1.5rem !important; }
+
+            /* 4. Fix the Nav Bar: allow it to scroll sideways so tabs don't disappear */
+            #main-nav {
+                overflow-x: auto !important;
+                -webkit-overflow-scrolling: touch;
+            }
             #main-nav .max-w-7xl {
-                padding-left: 1rem;
-                padding-right: 1rem;
+                min-width: 600px; /* Ensures tabs stay in a line on small phones */
             }
-            .nav-container-mobile {
-                display: flex;
-                overflow-x: auto;
-                white-space: nowrap;
-                gap: 1rem;
-                padding-bottom: 5px;
-                scrollbar-width: none; /* Firefox */
-            }
-            .nav-container-mobile::-webkit-scrollbar { display: none; }
 
-            /* Scale down huge fonts */
-            h1 { font-size: 2.8rem !important; line-height: 1.1 !important; }
-            h2 { font-size: 2.2rem !important; }
+            /* 5. Scale down the large images (Profile & Workspace) */
+            .w-72, .md\:w-\[450px\], .md\:w-\[480px\] {
+                width: 250px !important;
+                height: 250px !important;
+            }
             
-            /* Profile & Workspace Image sizing */
-            .profile-image-container {
-                width: 260px !important;
-                height: 260px !important;
+            .profile-frame {
+                max-width: 100% !important;
             }
 
-            /* Pricing Section: Remove sticky so it doesn't float over the form */
-            .sticky {
-                position: static !important;
-                margin-top: 2rem;
-            }
-
-            /* Adjust the Welcome Button */
+            /* 6. Adjust the Welcome Button for fingers */
             #welcome-pill {
-                padding: 1rem 2rem !important;
-                font-size: 1.5rem !important;
+                padding: 1.5rem 3rem !important;
+                font-size: 1.2rem !important;
+                letter-spacing: 0.3em !important;
+            }
+
+            /* 7. Ensure Pricing selection stays inside the screen */
+            #pricing .grid-cols-2 {
+                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+                gap: 0.5rem !important;
+            }
+            .price-option {
+                padding: 0.75rem !important;
+                font-size: 10px !important;
             }
         }
 
@@ -177,50 +189,50 @@
 
     <!-- NAV BAR -->
     <nav id="main-nav" class="fixed w-full z-50 backdrop-blur-lg border-b opacity-0 transition-opacity duration-1000">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
-            <div class="text-xl md:text-2xl font-bold tracking-tighter uppercase italic"><span class="neon-purple-text">Media Kilo</span></div>
-            <div class="nav-container-mobile flex md:space-x-4 text-[10px] md:text-xs font-bold uppercase tracking-widest text-gray-300">
+        <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+            <div class="text-2xl font-bold tracking-tighter uppercase italic"><span class="neon-purple-text">Media Kilo</span></div>
+            <div class="hidden md:flex space-x-10 text-xs font-bold uppercase tracking-widest text-gray-300">
                 <a href="#home" class="nav-link nav-active hover:text-white transition">Home</a>
-                <a href="#about" class="nav-link hover:text-white transition">About</a>
+                <a href="#about" class="nav-link hover:text-white transition">About Me</a>
                 <a href="#skills" class="nav-link hover:text-white transition">Skills</a>
                 <a href="#projects" class="nav-link hover:text-white transition">Portfolio</a>
-                <a href="#accomplishments" class="nav-link hover:text-white transition">Awards</a>
+                <a href="#accomplishments" class="nav-link hover:text-white transition">Accomplishments</a>
                 <a href="#pricing" class="nav-link hover:text-white transition">Pricing</a>
             </div>
         </div>
     </nav>
 
     <!-- 1. HOME SECTION -->
-    <section id="home" class="min-h-screen flex items-center justify-center relative py-20 max-w-7xl mx-auto px-6 text-left">
-        <button id="welcome-pill" onclick="revealHome()" class="px-10 py-5 md:px-20 md:py-10 rounded-full text-white cursor-pointer text-xl md:text-5xl shadow-2xl">
+    <section id="home" class="min-h-screen flex items-center justify-center relative py-48 max-w-7xl mx-auto px-6 text-left">
+        <button id="welcome-pill" onclick="revealHome()" class="px-20 py-10 rounded-full text-white cursor-pointer text-3xl md:text-5xl shadow-2xl">
             Welcome
         </button>
 
-        <div id="home-reveal-container" class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center w-full hidden">
-            <div class="space-y-6 md:space-y-10 order-2 md:order-1">
+        <div id="home-reveal-container" class="grid md:grid-cols-2 gap-16 items-center w-full hidden">
+            <div class="space-y-10">
                 <div class="hero-content-part" id="hero-line-1">
-                    <h1 class="text-4xl md:text-7xl font-black leading-tight uppercase text-white">
+                    <h1 class="text-5xl md:text-7xl font-black leading-tight uppercase text-white">
                         <span id="welcome-placeholder" class="opacity-0"></span>Welcome, I'm <br>
                         <span class="neon-purple-text">John Fernand</span>
                     </h1>
                 </div>
                 <div class="hero-content-part" id="hero-line-2" style="transition-delay: 0.3s; opacity: 0;">
-                    <h2 class="text-2xl md:text-4xl text-gray-200 font-light tracking-wide italic">How can I help you?</h2>
+                    <h2 class="text-3xl md:text-4xl text-gray-200 font-light tracking-wide italic">How can I help you?</h2>
                 </div>
                 <div class="hero-content-part" id="hero-line-3" style="transition-delay: 0.6s; opacity: 0;">
-                    <p class="text-gray-400 text-lg md:text-xl max-w-lg leading-relaxed border-l-2 border-purple-900 pl-6">
+                    <p class="text-gray-400 text-xl max-w-lg leading-relaxed border-l-2 border-purple-900 pl-6">
                         If you're interested, please take the time to view my work and background below.
                     </p>
                 </div>
                 <div class="hero-content-part" id="hero-line-4" style="transition-delay: 1.0s; opacity: 0;">
-                    <a href="#projects" id="explore-btn" class="gradient-btn px-10 py-4 md:px-12 md:py-5 rounded-full font-bold uppercase tracking-[0.2em] shadow-lg text-xs md:text-sm inline-block text-white">
+                    <a href="#projects" id="explore-btn" class="gradient-btn px-12 py-5 rounded-full font-bold uppercase tracking-[0.2em] shadow-lg text-sm inline-block text-white">
                         Explore Portfolio
                     </a>
                 </div>
             </div>
 
-            <div class="hero-content-part flex justify-center md:justify-end order-1 md:order-2" id="hero-image" style="transition-delay: 0.5s; opacity: 0;">
-                <div class="profile-frame w-64 md:w-full md:max-w-[420px] overflow-hidden rounded-3xl relative group premium-highlight">
+            <div class="hero-content-part flex justify-center md:justify-end" id="hero-image" style="transition-delay: 0.5s; opacity: 0;">
+                <div class="profile-frame w-full max-w-[420px] overflow-hidden rounded-3xl relative group premium-highlight">
                     <img src="media/F2.jpg" alt="Profile" class="w-full h-full object-cover grayscale transition-all duration-1000 group-hover:grayscale-0 group-hover:scale-110">
                 </div>
             </div>
@@ -228,17 +240,17 @@
     </section>
 
     <!-- 2. ABOUT ME SECTION -->
-    <section id="about" class="py-20 md:py-48 max-w-7xl mx-auto px-6">
+    <section id="about" class="py-48 max-w-7xl mx-auto px-6">
         <div class="max-w-6xl mx-auto content-reveal"> 
             
             <!-- TOP PART: BIOGRAPHY -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 items-center mb-20 md:mb-56">
+            <div class="grid md:grid-cols-2 gap-24 items-center mb-56">
                 <div class="order-2 md:order-1">
-                    <h2 class="text-4xl md:text-6xl font-black mb-8 md:mb-12 neon-purple-text uppercase tracking-tighter italic leading-none">
+                    <h2 class="text-6xl font-black mb-12 neon-purple-text uppercase tracking-tighter italic leading-none">
                         Hi, I'm <br><span class="text-white">John Fernand</span>
                     </h2>
                     
-                    <div class="space-y-6 text-gray-300 text-base md:text-lg leading-relaxed font-light tracking-wide">
+                    <div class="space-y-6 text-gray-300 text-lg leading-relaxed font-light tracking-wide">
                         <p>
                             A <span class="text-white font-bold">18-year-old</span> 
                             <span class="text-purple-400 font-medium">Bachelor of Science in Information Technology</span> 
@@ -256,51 +268,60 @@
                     </div>
                 </div>
 
-                <!-- Profile Image -->
+                <!-- Profile Image (Original Color + Constant Glow) -->
                 <div class="order-1 md:order-2 flex justify-center relative">
-                    <div class="absolute inset-0 bg-purple-600/20 blur-[80px] rounded-full scale-110"></div>
-                    <div class="profile-image-container w-64 h-64 md:w-[480px] md:h-[480px] rounded-full overflow-hidden relative z-10 border-4 border-purple-500 shadow-[0_0_40px_rgba(177,102,204,0.6)]">
+                    <!-- Ambient background glow behind the photo -->
+                    <div class="absolute inset-0 bg-purple-600/20 blur-[100px] rounded-full scale-110"></div>
+                    
+                    <!-- The Circle Image -->
+                    <div class="w-72 h-72 md:w-[480px] md:h-[480px] rounded-full overflow-hidden relative z-10 border-4 border-purple-500 shadow-[0_0_40px_rgba(177,102,204,0.6)]">
+                        <!-- Removed grayscale class -->
                         <img src="media/Me.jpg" alt="John Fernand" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
                     </div>
                 </div>
             </div>
 
             <!-- BOTTOM PART: WORKSPACE -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 items-center">
-                <!-- Workspace Image -->
-                <div class="rounded-[30px] md:rounded-[40px] overflow-hidden glass-card p-2 md:p-3 border-2 border-purple-500/50 shadow-[0_0_35px_rgba(177,102,204,0.3)] group">
-                    <div class="rounded-[20px] md:rounded-[30px] overflow-hidden relative">
+            <div class="grid md:grid-cols-2 gap-24 items-center">
+                <!-- Workspace Image (Original Color + Glow Border) -->
+                <div class="rounded-[40px] overflow-hidden glass-card p-3 border-2 border-purple-500/50 shadow-[0_0_35px_rgba(177,102,204,0.3)] group">
+                    <div class="rounded-[30px] overflow-hidden relative">
+                        <!-- Removed grayscale and low opacity -->
                         <img src="media/workspace.jpg" alt="The Edit Suite" class="w-full opacity-100 group-hover:scale-105 transition-all duration-1000 ease-out">
-                        <div class="absolute bottom-4 left-6 md:bottom-6 md:left-8">
-                            <span class="text-[8px] md:text-[10px] font-bold tracking-[0.4em] text-white bg-black/40 px-3 py-1 rounded-full uppercase backdrop-blur-md">Production Suite 2025</span>
+                        <!-- Subtle overlay text on image -->
+                        <div class="absolute bottom-6 left-8">
+                            <span class="text-[10px] font-bold tracking-[0.4em] text-white bg-black/40 px-3 py-1 rounded-full uppercase backdrop-blur-md">Production Suite 2025</span>
                         </div>
                     </div>
                 </div>
                 
-                <div class="space-y-6 md:space-y-8">
-                    <h2 class="text-3xl md:text-4xl font-black italic purple-underline uppercase tracking-tighter leading-tight">
+                <div class="space-y-8">
+                    <h2 class="text-4xl font-black italic purple-underline uppercase tracking-tighter leading-tight">
                         The Workspace <br><span class="text-white">Behind The Craft.</span>
                     </h2>
                     
-                    <p class="text-gray-300 text-lg md:text-xl leading-relaxed font-light">
+                    <p class="text-gray-300 text-xl leading-relaxed font-light">
                         My edit suite is where logic meets emotion. With years spent mastering the timeline, I've learned that a viral video isn't just about effects—it's about the <span class="text-white font-bold">pacing</span> and <span class="text-white font-bold">sound design</span> that connects with the viewer's heartbeat.
                     </p>
                     
-                    <div class="bg-white/5 backdrop-blur-sm border border-white/10 p-5 md:p-6 rounded-2xl">
-                        <p class="text-purple-400 italic text-lg md:text-xl font-medium tracking-tight">
+                    <div class="bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-2xl">
+                        <p class="text-purple-400 italic text-xl font-medium tracking-tight">
                             "Precision in Every Frame. Emotion in Every Edit."
                         </p>
                     </div>
                 </div>
             </div>
+
         </div>
     </section>
 
+        
+
     <!-- 3. SKILLS SECTION -->
-    <section id="skills" class="py-20 md:py-48 max-w-7xl mx-auto px-6">
+    <section id="skills" class="py-48 max-w-7xl mx-auto px-6">
         <div class="content-reveal">
-            <h2 class="text-4xl md:text-5xl font-black mb-16 md:mb-24 uppercase tracking-widest text-center md:text-left">Technical Mastery</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 items-center">
+            <h2 class="text-5xl font-black mb-24 uppercase tracking-widest text-center md:text-left">Technical Mastery</h2>
+            <div class="grid md:grid-cols-2 gap-20 items-center">
                 <div class="hidden md:block">
                     <div class="glass-card rounded-3xl overflow-hidden aspect-[3/2] relative border-2 border-purple-500/40 premium-highlight">
                         <img id="skill-preview-img" src="media/skills.jpg" alt="Preview" class="w-full h-full object-cover opacity-100">
@@ -310,26 +331,26 @@
                         </div>
                     </div>
                 </div>
-                <div class="grid grid-cols-1 gap-4 md:gap-8">
-                    <div class="glass-card p-6 md:p-8 rounded-xl flex items-center space-x-6 md:space-x-8 skill-card cursor-pointer border-l-4 premium-highlight" onmouseenter="updateSkillPreview('media/t1.jpg', 'CapCut')" onmouseleave="resetSkillPreview()">
-                        <i class="fa-solid fa-scissors text-2xl md:text-3xl neon-purple-text"></i>
-                        <h3 class="text-lg md:text-xl font-black uppercase tracking-widest text-white">CapCut</h3>
+                <div class="grid grid-cols-1 gap-8">
+                    <div class="glass-card p-8 rounded-xl flex items-center space-x-8 skill-card cursor-pointer border-l-4 premium-highlight" onmouseenter="updateSkillPreview('media/t1.jpg', 'CapCut')" onmouseleave="resetSkillPreview()">
+                        <i class="fa-solid fa-scissors text-3xl neon-purple-text"></i>
+                        <h3 class="text-xl font-black uppercase tracking-widest text-white">CapCut</h3>
                     </div>
-                    <div class="glass-card p-6 md:p-8 rounded-xl flex items-center space-x-6 md:space-x-8 skill-card cursor-pointer border-l-4 premium-highlight" onmouseenter="updateSkillPreview('media/t2.jpg', 'Canva Design')" onmouseleave="resetSkillPreview()">
-                        <i class="fa-solid fa-pen-nib text-2xl md:text-3xl neon-purple-text"></i>
-                        <h3 class="text-lg md:text-xl font-black uppercase tracking-widest text-white">Canva Design</h3>
+                    <div class="glass-card p-8 rounded-xl flex items-center space-x-8 skill-card cursor-pointer border-l-4 premium-highlight" onmouseenter="updateSkillPreview('media/t2.jpg', 'Canva Design')" onmouseleave="resetSkillPreview()">
+                        <i class="fa-solid fa-pen-nib text-3xl neon-purple-text"></i>
+                        <h3 class="text-xl font-black uppercase tracking-widest text-white">Canva Design</h3>
                     </div>
-                    <div class="glass-card p-6 md:p-8 rounded-xl flex items-center space-x-6 md:space-x-8 skill-card cursor-pointer border-l-4 premium-highlight" onmouseenter="updateSkillPreview('media/t3.jpg', 'Color Grading')" onmouseleave="resetSkillPreview()">
-                        <i class="fa-solid fa-palette text-2xl md:text-3xl neon-purple-text"></i>
-                        <h3 class="text-lg md:text-xl font-black uppercase tracking-widest text-white">Color Grading</h3>
+                    <div class="glass-card p-8 rounded-xl flex items-center space-x-8 skill-card cursor-pointer border-l-4 premium-highlight" onmouseenter="updateSkillPreview('media/t3.jpg', 'Color Grading')" onmouseleave="resetSkillPreview()">
+                        <i class="fa-solid fa-palette text-3xl neon-purple-text"></i>
+                        <h3 class="text-xl font-black uppercase tracking-widest text-white">Color Grading</h3>
                     </div>
-                    <div class="glass-card p-6 md:p-8 rounded-xl flex items-center space-x-6 md:space-x-8 skill-card cursor-pointer border-l-4 premium-highlight" onmouseenter="updateSkillPreview('media/t4.jpg', 'OBS Studio')" onmouseleave="resetSkillPreview()">
-                        <i class="fa-solid fa-broadcast-tower text-2xl md:text-3xl neon-purple-text"></i>
-                        <h3 class="text-lg md:text-xl font-black uppercase tracking-widest text-white">OBS Studio</h3>
+                    <div class="glass-card p-8 rounded-xl flex items-center space-x-8 skill-card cursor-pointer border-l-4 premium-highlight" onmouseenter="updateSkillPreview('media/t4.jpg', 'OBS Studio')" onmouseleave="resetSkillPreview()">
+                        <i class="fa-solid fa-broadcast-tower text-3xl neon-purple-text"></i>
+                        <h3 class="text-xl font-black uppercase tracking-widest text-white">OBS Studio</h3>
                     </div>
-                    <div class="glass-card p-6 md:p-8 rounded-xl flex items-center space-x-6 md:space-x-8 skill-card cursor-pointer border-l-4 premium-highlight" onmouseenter="updateSkillPreview('media/t5.jpg', 'Videography')" onmouseleave="resetSkillPreview()">
-                        <i class="fa-solid fa-camera-retro text-2xl md:text-3xl neon-purple-text"></i>
-                        <h3 class="text-lg md:text-xl font-black uppercase tracking-widest text-white">Videography</h3>
+                    <div class="glass-card p-8 rounded-xl flex items-center space-x-8 skill-card cursor-pointer border-l-4 premium-highlight" onmouseenter="updateSkillPreview('media/t5.jpg', 'Videography')" onmouseleave="resetSkillPreview()">
+                        <i class="fa-solid fa-camera-retro text-3xl neon-purple-text"></i>
+                        <h3 class="text-xl font-black uppercase tracking-widest text-white">Videography</h3>
                     </div>
                 </div>
             </div>
@@ -337,17 +358,17 @@
     </section>
 
     <!-- 4. PORTFOLIO SECTION -->
-    <section id="projects" class="py-20 md:py-48 max-w-7xl mx-auto px-6">
+    <section id="projects" class="py-48 max-w-7xl mx-auto px-6">
         <div class="content-reveal"> 
-            <h2 class="text-4xl md:text-6xl font-black mb-16 md:mb-32 text-center uppercase tracking-tighter italic text-white">Selected Portfolio</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-10 mb-16 md:mb-32">
+            <h2 class="text-6xl font-black mb-32 text-center uppercase tracking-tighter italic text-white">Selected Portfolio</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-32">
                 <script>
                     for(let i=1; i<=3; i++) {
-                        document.write(`<div onclick="openProject('v${i}')" class="glass-card group cursor-pointer rounded-3xl overflow-hidden border-2 premium-highlight"><div class="aspect-video relative overflow-hidden bg-black"><img src="media/v${i}.jpg" class="w-full h-full object-cover opacity-50 group-hover:scale-110 transition duration-700"><i class="fa-solid fa-play absolute inset-0 m-auto w-fit h-fit text-3xl md:text-5xl text-white opacity-80 group-hover:text-purple-400 transition"></i></div></div>`);
+                        document.write(`<div onclick="openProject('v${i}')" class="glass-card group cursor-pointer rounded-3xl overflow-hidden border-2 premium-highlight"><div class="aspect-video relative overflow-hidden bg-black"><img src="media/v${i}.jpg" class="w-full h-full object-cover opacity-50 group-hover:scale-110 transition duration-700"><i class="fa-solid fa-play absolute inset-0 m-auto w-fit h-fit text-5xl text-white opacity-80 group-hover:text-purple-400 transition"></i></div></div>`);
                     }
                 </script>
             </div>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 text-white">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-white">
                 <script>
                     for(let i=1; i<=8; i++) {
                         document.write(`<div onclick="openProject('l${i}')" class="aspect-square glass-card cursor-pointer overflow-hidden rounded-2xl border-2 premium-highlight"><img src="media/l${i}.jpg" class="w-full h-full object-cover opacity-40 hover:opacity-100 transition duration-500"></div>`);
@@ -358,20 +379,20 @@
     </section>
 
     <!-- 5. ACCOMPLISHMENTS SECTION -->
-    <section id="accomplishments" class="py-20 md:py-48 max-w-7xl mx-auto px-6">
+    <section id="accomplishments" class="py-48 max-w-7xl mx-auto px-6">
         <div class="max-w-6xl mx-auto text-center content-reveal">
-            <h2 class="text-4xl md:text-5xl font-black mb-16 md:mb-24 uppercase tracking-widest italic text-white">Accomplishments</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 mb-12 md:mb-20">
-                <div class="glass-card p-8 md:p-12 rounded-3xl flex items-center space-x-6 md:space-x-10 text-left border-b-4 border-purple-600 premium-highlight">
-                    <i class="fa-solid fa-trophy text-3xl md:text-5xl neon-purple-text"></i>
-                    <div><h4 class="text-xl md:text-2xl font-black uppercase mb-1 md:mb-2 text-white">Achievement</h4><p class="text-gray-400 text-sm md:text-lg italic"></p></div>
+            <h2 class="text-5xl font-black mb-24 uppercase tracking-widest italic text-white">Accomplishments</h2>
+            <div class="grid md:grid-cols-2 gap-12 mb-20">
+                <div class="glass-card p-12 rounded-3xl flex items-center space-x-10 text-left border-b-4 border-purple-600 premium-highlight">
+                    <i class="fa-solid fa-trophy text-5xl neon-purple-text"></i>
+                    <div><h4 class="text-2xl font-black uppercase mb-2 text-white">Achievement</h4><p class="text-gray-400 text-lg italic"></p></div>
                 </div>
-                <div class="glass-card p-8 md:p-12 rounded-3xl flex items-center space-x-6 md:space-x-10 text-left border-b-4 border-purple-600 premium-highlight">
-                    <i class="fa-solid fa-users text-3xl md:text-5xl neon-purple-text"></i>
-                    <div><h4 class="text-xl md:text-2xl font-black uppercase mb-1 md:mb-2 text-white">MediaKilo</h4><p class="text-gray-400 text-sm md:text-lg italic"></p></div>
+                <div class="glass-card p-12 rounded-3xl flex items-center space-x-10 text-left border-b-4 border-purple-600 premium-highlight">
+                    <i class="fa-solid fa-users text-5xl neon-purple-text"></i>
+                    <div><h4 class="text-2xl font-black uppercase mb-2 text-white">MediaKilo</h4><p class="text-gray-400 text-lg italic"></p></div>
                 </div>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-10">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
                 <div onclick="openProject('a1')" class="aspect-video glass-card rounded-3xl overflow-hidden cursor-pointer group border-2 premium-highlight"><img src="media/a1.jpg" alt="A1" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition duration-500"></div>
                 <div onclick="openProject('a2')" class="aspect-video glass-card rounded-3xl overflow-hidden cursor-pointer group border-2 premium-highlight"><img src="media/a2.jpg" alt="A2" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition duration-500"></div>
                 <div onclick="openProject('a3')" class="aspect-video glass-card rounded-3xl overflow-hidden cursor-pointer group border-2 premium-highlight"><img src="media/a3.jpg" alt="A3" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition duration-500"></div>
@@ -380,57 +401,57 @@
     </section>
 
     <!-- 6. PRICING SECTION -->
-    <section id="pricing" class="py-20 md:py-48 max-w-7xl mx-auto px-6">
+    <section id="pricing" class="py-48 max-w-7xl mx-auto px-6">
         <div class="content-reveal"> 
-            <h2 class="text-4xl md:text-5xl font-black mb-16 md:mb-24 uppercase tracking-widest text-center md:text-left color-swipe">Service Menu</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 items-start">
+            <h2 class="text-5xl font-black mb-24 uppercase tracking-widest text-center md:text-left color-swipe">Service Menu</h2>
+            <div class="grid md:grid-cols-2 gap-20 items-start">
                 
                 <!-- LEFT SELECTION -->
-                <div class="glass-card p-6 md:p-10 rounded-[30px] border-2 border-purple-500/20 space-y-8 md:space-y-10 premium-highlight">
+                <div class="glass-card p-10 rounded-[30px] border-2 border-purple-500/20 space-y-10 premium-highlight">
                     <div>
-                        <label class="block text-purple-400 font-bold uppercase tracking-widest mb-4 text-[10px]">1. Select Edit Type</label>
-                        <div class="grid grid-cols-2 gap-3 md:gap-4">
-                            <button type="button" onclick="setBasePrice(500, 'Short Form')" class="price-option p-3 md:p-4 rounded-xl border border-white/10 hover:border-purple-500 transition text-[10px] md:text-sm font-bold uppercase text-white">Short Form</button>
-                            <button type="button" onclick="setBasePrice(500, 'YouTube Edit')" class="price-option p-3 md:p-4 rounded-xl border border-white/10 hover:border-purple-500 transition text-[10px] md:text-sm font-bold uppercase text-white">YouTube</button>
-                            <button type="button" onclick="setBasePrice(500, 'Cinematic/Commercial')" class="price-option p-3 md:p-4 rounded-xl border border-white/10 hover:border-purple-500 transition text-[10px] md:text-sm font-bold uppercase text-white">Cinematic</button>
-                            <button type="button" onclick="setBasePrice(500, 'Promotional')" class="price-option p-3 md:p-4 rounded-xl border border-white/10 hover:border-purple-500 transition text-[10px] md:text-sm font-bold uppercase text-white">Promotional</button>
+                        <label class="block text-purple-400 font-bold uppercase tracking-widest mb-4 text-xs">1. Select Edit Type</label>
+                        <div class="grid grid-cols-2 gap-4">
+                            <button type="button" onclick="setBasePrice(500, 'Short Form')" class="price-option p-4 rounded-xl border border-white/10 hover:border-purple-500 transition text-sm font-bold uppercase text-white">Short Form</button>
+                            <button type="button" onclick="setBasePrice(500, 'YouTube Edit')" class="price-option p-4 rounded-xl border border-white/10 hover:border-purple-500 transition text-sm font-bold uppercase text-white">YouTube</button>
+                            <button type="button" onclick="setBasePrice(500, 'Cinematic/Commercial')" class="price-option p-4 rounded-xl border border-white/10 hover:border-purple-500 transition text-sm font-bold uppercase text-white">Cinematic</button>
+                            <button type="button" onclick="setBasePrice(500, 'Promotional')" class="price-option p-4 rounded-xl border border-white/10 hover:border-purple-500 transition text-sm font-bold uppercase text-white">Promotional</button>
                         </div>
                     </div>
                     <div>
-                        <label class="block text-purple-400 font-bold uppercase tracking-widest mb-4 text-[10px]">2. Video Length (Minutes)</label>
+                        <label class="block text-purple-400 font-bold uppercase tracking-widest mb-4 text-xs">2. Video Length (Minutes)</label>
                         <input type="range" min="5" max="30" value="5" id="durationRange" oninput="calculateTotal()" class="w-full h-2 bg-purple-900 rounded-lg appearance-none cursor-pointer accent-purple-500">
-                        <div class="flex justify-between mt-2 text-[8px] md:text-[10px] font-bold text-gray-400">
-                            <span>5 MIN (Included)</span><span id="durationValue" class="text-white text-base md:text-lg font-black">5 MINS</span><span>30 MIN</span>
+                        <div class="flex justify-between mt-2 text-[10px] font-bold text-gray-400">
+                            <span>5 MIN (Included)</span><span id="durationValue" class="text-white text-lg font-black">5 MINS</span><span>30 MIN</span>
                         </div>
                     </div>
                     <div>
-                        <label class="block text-purple-400 font-bold uppercase tracking-widest mb-4 text-[10px]">3. Add-ons</label>
+                        <label class="block text-purple-400 font-bold uppercase tracking-widest mb-4 text-xs">3. Add-ons</label>
                         <div class="space-y-4">
                             <label class="flex items-center space-x-3 cursor-pointer group">
                                 <input type="checkbox" value="100" class="addon-check w-5 h-5 rounded border-purple-500 text-purple-600 bg-black/40 focus:ring-purple-500" onchange="calculateTotal()">
-                                <span class="text-gray-300 group-hover:text-white transition text-xs md:text-sm font-medium tracking-wide">Subtitles (+₱100)</span>
+                                <span class="text-gray-300 group-hover:text-white transition text-sm font-medium tracking-wide">Subtitles (+₱100)</span>
                             </label>
                             <label class="flex items-center space-x-3 cursor-pointer group">
                                 <input type="checkbox" value="100" class="addon-check w-5 h-5 rounded border-purple-500 text-purple-600 bg-black/40 focus:ring-purple-500" onchange="calculateTotal()">
-                                <span class="text-gray-300 group-hover:text-white transition text-xs md:text-sm font-medium tracking-wide">Sound Design (+₱100)</span>
+                                <span class="text-gray-300 group-hover:text-white transition text-sm font-medium tracking-wide">Sound Design (+₱100)</span>
                             </label>
                             <label class="flex items-center space-x-3 cursor-pointer group">
                                 <input type="checkbox" value="300" class="addon-check w-5 h-5 rounded border-purple-500 text-purple-600 bg-black/40 focus:ring-purple-500" onchange="calculateTotal()">
-                                <span class="text-gray-300 group-hover:text-white transition text-xs md:text-sm font-medium tracking-wide">Shooting (+₱300)</span>
+                                <span class="text-gray-300 group-hover:text-white transition text-sm font-medium tracking-wide">Shooting (+₱300)</span>
                             </label>
                         </div>
                     </div>
                 </div>
 
-                <!-- RIGHT SUMMARY (Sticky on desktop only) -->
-                <div class="md:sticky md:top-32">
-                    <div class="glass-card p-6 md:p-10 rounded-[30px] border-2 border-purple-500 shadow-[0_0_50px_rgba(157,80,187,0.2)] premium-highlight">
-                        <h3 class="text-xl md:text-2xl font-black uppercase italic mb-6 text-white text-center tracking-widest">Details Summary</h3>
+                <!-- RIGHT SUMMARY -->
+                <div class="sticky top-32">
+                    <div class="glass-card p-10 rounded-[30px] border-2 border-purple-500 shadow-[0_0_50px_rgba(157,80,187,0.2)] premium-highlight">
+                        <h3 class="text-2xl font-black uppercase italic mb-6 text-white text-center tracking-widest">Details Summary</h3>
                         
-                        <div class="space-y-4 mb-8 border-b border-white/10 pb-8 text-gray-400 text-xs md:text-sm italic">
+                        <div class="space-y-4 mb-8 border-b border-white/10 pb-8 text-gray-400 text-sm italic">
                             <p>Edit Style: <span id="summary-type" class="text-white not-italic font-bold">Select Style</span></p>
                             <p>Projected Total:</p>
-                            <p class="text-4xl md:text-6xl font-black text-white price-total-glow">₱<span id="total-price">0</span></p>
+                            <p class="text-6xl font-black text-white price-total-glow">₱<span id="total-price">0</span></p>
                         </div>
 
                         <!-- GMAIL CONTACT FORM -->
@@ -441,14 +462,14 @@
 
                             <div class="space-y-4 text-white">
                                 <input type="text" name="name" placeholder="YOUR NAME" required 
-                                       class="w-full bg-black/50 border border-white/10 p-3 md:p-4 rounded-xl outline-none focus:border-purple-500 transition font-bold text-[10px] tracking-widest">
+                                       class="w-full bg-black/50 border border-white/10 p-4 rounded-xl outline-none focus:border-purple-500 transition font-bold text-xs tracking-widest">
                                 <input type="email" name="email" placeholder="YOUR GMAIL" required 
-                                       class="w-full bg-black/50 border border-white/10 p-3 md:p-4 rounded-xl outline-none focus:border-purple-500 transition font-bold text-[10px] tracking-widest">
+                                       class="w-full bg-black/50 border border-white/10 p-4 rounded-xl outline-none focus:border-purple-500 transition font-bold text-xs tracking-widest">
                                 <textarea name="message" placeholder="TELL ME ABOUT YOUR PROJECT..." rows="4" 
-                                          class="w-full bg-black/50 border border-white/10 p-3 md:p-4 rounded-xl outline-none focus:border-purple-500 transition font-medium text-xs md:text-sm"></textarea>
+                                          class="w-full bg-black/50 border border-white/10 p-4 rounded-xl outline-none focus:border-purple-500 transition font-medium text-sm"></textarea>
                             </div>
                             
-                            <button type="submit" class="gradient-btn w-full py-4 md:py-5 rounded-full font-black uppercase shadow-xl text-white text-xs md:text-sm tracking-[0.3em]">
+                            <button type="submit" class="gradient-btn w-full py-5 rounded-full font-black uppercase shadow-xl text-white text-sm tracking-[0.3em]">
                                 Send Inquiry
                             </button>
                         </form>
@@ -461,28 +482,28 @@
     <!-- FOOTER -->
     <footer id="contact-footer" class="w-full py-10 px-6 border-t" style="background: rgba(10, 10, 10, 0.3); backdrop-filter: blur(25px) saturate(180%); border-color: rgba(177, 102, 204, 0.15);">
         <div class="max-w-7xl mx-auto flex flex-col items-center">
-            <div class="flex justify-center space-x-8 md:space-x-12 mb-8 text-3xl md:text-4xl text-white">
+            <div class="flex justify-center space-x-12 mb-8 text-4xl text-white">
                 <a href="https://facebook.com/Shadow.web.08" target="_blank" class="text-gray-400 hover:neon-purple-text transition transform hover:scale-110"><i class="fa-brands fa-facebook"></i></a>
                 <a href="https://instagram.com/janxs08" target="_blank" class="text-gray-400 hover:neon-purple-text transition transform hover:scale-110"><i class="fa-brands fa-instagram"></i></a>
                 <a href="mailto:johnbajador08@gmail.com" class="text-gray-400 hover:neon-purple-text transition transform hover:scale-110"><i class="fa-solid fa-envelope"></i></a>
             </div>
-            <p class="text-gray-500 uppercase text-[8px] md:text-[10px] font-bold tracking-[0.3em] md:tracking-[0.5em] italic opacity-80 text-center">© 2025 Shadow Edit Portfolio • Built for Precision</p>
+            <p class="text-gray-500 uppercase text-[10px] font-bold tracking-[0.5em] italic opacity-80 text-center">© 2025 Shadow Edit Portfolio • Built for Precision</p>
         </div>
     </footer>
 
-    <!-- MODAL (Responsive handling) -->
+    <!-- MODAL -->
     <div id="projectModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 bg-black/98 backdrop-blur-xl">
-        <div class="w-full max-w-5xl bg-[#0a0014] rounded-[20px] md:rounded-[40px] border border-purple-500/40 overflow-hidden shadow-2xl">
-            <div class="p-4 md:p-8">
+        <div class="w-full max-w-5xl bg-[#0a0014] rounded-[40px] border border-purple-500/40 overflow-hidden shadow-2xl">
+            <div class="p-8">
                 <div id="videoContainer" class="hidden aspect-video bg-black rounded-xl overflow-hidden">
                     <video id="modalVideoPlayer" controls class="w-full h-full"><source id="videoSource" src="" type="video/mp4"></video>
                 </div>
                 <div id="layoutContainer" class="hidden text-center">
-                    <img id="modalImage" src="" class="max-h-[60vh] md:max-h-[70vh] mx-auto rounded-xl">
+                    <img id="modalImage" src="" class="max-h-[70vh] mx-auto rounded-xl">
                 </div>
-                <div class="mt-6 md:mt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-white">
-                    <h3 id="modalTitle" class="text-xl md:text-3xl font-black uppercase tracking-widest italic">Project</h3>
-                    <button onclick="closeModal()" class="gradient-btn w-full md:w-auto px-10 py-3 md:py-4 rounded-xl font-bold uppercase flex items-center justify-center gap-2"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                <div class="mt-8 flex justify-between items-center text-white">
+                    <h3 id="modalTitle" class="text-3xl font-black uppercase tracking-widest italic">Project</h3>
+                    <button onclick="closeModal()" class="gradient-btn px-10 py-4 rounded-xl font-bold uppercase flex items-center gap-2"><i class="fa-solid fa-arrow-left"></i> Back</button>
                 </div>
             </div>
         </div>
